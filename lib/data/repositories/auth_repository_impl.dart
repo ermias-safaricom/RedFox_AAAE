@@ -1,8 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lyqx_challange/core/network/exceptions.dart';
-import 'package:lyqx_challange/core/services/secure_storage_service.dart';
-import 'package:lyqx_challange/core/di/injection.dart';
 import '../../core/utils/failure.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
@@ -21,7 +19,6 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final user = await remoteDataSource.login(username, password);
       await localDataSource.saveUser(user);
-      await getIt<SecureStorageService>().write(key: 'access_token', value: user.token);
       return Right(user);
     } on NetworkException catch (e) {
       return Left(NetworkFailure(e.message));
@@ -34,7 +31,6 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, void>> logout() async {
     try {
       await localDataSource.clearUser();
-      await getIt<SecureStorageService>().delete(key: 'access_token');
       return const Right(null);
     } catch (e) {
       return Left(CacheFailure(e.toString()));

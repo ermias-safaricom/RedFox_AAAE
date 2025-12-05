@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lyqx_challange/core/constants/app_constants.dart';
 import 'package:lyqx_challange/core/di/injection.dart';
 import 'package:lyqx_challange/core/services/secure_storage_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthGate extends StatefulWidget {
   const AuthGate({super.key});
@@ -18,24 +20,23 @@ class _AuthGateState extends State<AuthGate> {
   }
 
   Future<void> _checkTokenAndNavigate() async {
-    final storage = getIt<SecureStorageService>();
-    final token = await storage.read(key: 'access_token');
+    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
+    final token = sharedPreferences.getString(AppConstants.tokenKey);
+    print("token: $token");
     if (!mounted) return;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (token != null && token.isNotEmpty) {
         context.go('/products');
       } else {
-        context.go('/login');
+        context.go('/welcome');
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: CircularProgressIndicator()),
-    );
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }
