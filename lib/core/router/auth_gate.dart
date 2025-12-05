@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lyqx_challange/core/constants/app_constants.dart';
-import 'package:lyqx_challange/core/di/injection.dart';
-import 'package:lyqx_challange/core/services/secure_storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthGate extends StatefulWidget {
