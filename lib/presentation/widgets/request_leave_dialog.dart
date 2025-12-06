@@ -33,6 +33,7 @@ class _RequestLeaveDialogState extends State<RequestLeaveDialog> {
   String? _selectedLeaveState;
   DateTime? _fromDate;
   final _daysController = TextEditingController(text: '0');
+  late final TextEditingController _dateDisplayController;
 
   final List<String> _leaveTypes = [
     'Annual Leave',
@@ -49,8 +50,15 @@ class _RequestLeaveDialogState extends State<RequestLeaveDialog> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _dateDisplayController = TextEditingController();
+  }
+
+  @override
   void dispose() {
     _daysController.dispose();
+    _dateDisplayController.dispose();
     super.dispose();
   }
 
@@ -74,6 +82,10 @@ class _RequestLeaveDialogState extends State<RequestLeaveDialog> {
     if (picked != null && picked != _fromDate) {
       setState(() {
         _fromDate = picked;
+        _dateDisplayController.text = 
+            '${picked.day.toString().padLeft(2, '0')}/'
+            '${picked.month.toString().padLeft(2, '0')}/'
+            '${picked.year}';
       });
     }
   }
@@ -196,13 +208,7 @@ class _RequestLeaveDialogState extends State<RequestLeaveDialog> {
                     labelText: 'From Date',
                     suffixIcon: const Icon(Icons.calendar_today),
                   ),
-                  controller: TextEditingController(
-                    text: _fromDate != null
-                        ? '${_fromDate!.day.toString().padLeft(2, '0')}/'
-                            '${_fromDate!.month.toString().padLeft(2, '0')}/'
-                            '${_fromDate!.year}'
-                        : '',
-                  ),
+                  controller: _dateDisplayController,
                   style: AppTheme.bodyMedium,
                 ),
               ),

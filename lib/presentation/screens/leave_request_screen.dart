@@ -11,6 +11,7 @@ import '../theme/app_theme.dart';
 import '../widgets/leave_list_item.dart';
 import '../widgets/request_leave_dialog.dart';
 import '../widgets/auth_button.dart';
+import '../models/sample_leave_data.dart';
 
 class LeaveRequestScreen extends StatefulWidget {
   const LeaveRequestScreen({super.key});
@@ -20,45 +21,15 @@ class LeaveRequestScreen extends StatefulWidget {
 }
 
 class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
-  // Sample leave data
-  final List<Map<String, String>> _leaveData = [
-    {
-      'leave': 'Annual Leave',
-      'fh': 'FH1',
-      'days': '5',
-      'dateRange': '01/12 - 05/12',
-    },
-    {
-      'leave': 'Sick Leave',
-      'fh': 'FH2',
-      'days': '2',
-      'dateRange': '10/12 - 11/12',
-    },
-    {
-      'leave': 'Casual Leave',
-      'fh': 'FH1',
-      'days': '3',
-      'dateRange': '15/12 - 17/12',
-    },
-    {
-      'leave': 'Annual Leave',
-      'fh': 'FH3',
-      'days': '7',
-      'dateRange': '20/12 - 27/12',
-    },
-    {
-      'leave': 'Sick Leave',
-      'fh': 'FH2',
-      'days': '1',
-      'dateRange': '28/12',
-    },
-    {
-      'leave': 'Casual Leave',
-      'fh': 'FH1',
-      'days': '4',
-      'dateRange': '01/01 - 04/01',
-    },
-  ];
+  // Use sample data from separate model
+  List<Map<String, String>> _leaveData = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize with sample data
+    _leaveData = List.from(SampleLeaveData.leaveRequestsAsMaps);
+  }
 
   void _showRequestLeaveDialog() {
     showDialog(

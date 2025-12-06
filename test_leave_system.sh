@@ -49,8 +49,8 @@ echo ""
 
 # Test compilation of leave_main.dart
 echo "=== Step 4: Testing Leave Management App Compilation ==="
-flutter build apk --debug -t lib/leave_main.dart --target-platform android-arm64 || \
-flutter build web -t lib/leave_main.dart --no-sound-null-safety 2>/dev/null || \
+flutter build apk --debug -t lib/leave_main.dart --target-platform android-arm64 2>/dev/null || \
+flutter build web -t lib/leave_main.dart 2>/dev/null || \
 echo "Skipping build test (requires specific platform setup)"
 echo ""
 
