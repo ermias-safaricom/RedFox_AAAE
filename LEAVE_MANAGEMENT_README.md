@@ -4,6 +4,16 @@
 
 This pull request adds a complete leave management system UI to the RedFox_AAAE Flutter application. The new screens and components are designed as a separate feature module that can be integrated into the existing e-commerce application.
 
+## Reference Screenshots
+
+The implementation is based on the following reference screenshots provided in the issue:
+- Login screen with centered logo and form
+- Home screen with grid menu cards
+- Leave request screen with table layout
+- Request leave modal dialog
+
+All UI elements have been implemented to match these screenshots as closely as possible using Flutter's Material Design components.
+
 ## New Files Added
 
 ### Theme
